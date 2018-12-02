@@ -9,10 +9,7 @@ import Service.WindowSystemService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -85,6 +82,18 @@ public class NetworkController {
                 packetContainer.getPackets().size(),
                 null
         );
+    }
+
+    @RequestMapping(value = "/commit", method = RequestMethod.POST)
+    public void commit(
+            @RequestParam("contents") final List<Map<String, String>> contents
+    ) {
+        //TODO Receive by List Map Type
+    }
+
+    @RequestMapping("/analytics")
+    public ModelAndView analytics() {
+        return new ModelAndView("analytics");
     }
 
     @RequestMapping("/viewDevices")

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
-       xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:aop="http://www.springframework.org/schema/aop" xmlns:util="http://www.springframework.org/schema/util"
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:util="http://www.springframework.org/schema/util" xmlns="http://www.springframework.org/schema/beans"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
@@ -21,7 +21,6 @@
     <context:component-scan base-package="Config" />
     <context:component-scan base-package="Pcap" />
 
-
     <mvc:interceptors>
         <mvc:interceptor>
             <mvc:mapping path="/network"/>
@@ -35,4 +34,16 @@
         <property name="suffix" value=".jsp"/>
     </bean>
     <util:properties id="serverXmlFile" location="classpath:server.xml"/>
+
+    <!-- JDBC -->
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://127.0.0.1:3306/localhost?characterEncoding=utf8&amp;serverTimezone=UTC"/>
+        <property name="username" value="root"/>
+        <property name="password" value="tkddngn1"/>
+    </bean>
+
+    <bean id="revisionDao" class="dao.RevisionDao">
+        <constructor-arg ref="dataSource"/>
+    </bean>
 </beans>

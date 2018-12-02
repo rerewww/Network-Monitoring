@@ -15,6 +15,15 @@ var packets = {
 
     showPackets : function (result) {
         var onclick = function() {
+            if (window.event.target.parentElement.style.backgroundColor === 'silver') {
+                window.event.target.parentElement.className = "";
+                viewStyle.setStyle(window.event.target.parentElement, 'background-color', window.event.target.parentElement.beforeColor);
+            } else {
+                window.event.target.parentElement.className = "commit";
+                window.event.target.parentElement.beforeColor = window.event.target.parentElement.style.backgroundColor;
+                viewStyle.setStyle(window.event.target.parentElement, 'background-color', 'silver');
+            }
+
             if (document.getElementById('hexDumpInfo').childElementCount > 5) {
                 document.getElementById('hexDumpInfo').removeChild(document.getElementById('hexDumpInfo').children[1]);
             }
@@ -106,6 +115,25 @@ var packets = {
     download: function () {
         var downloadElem = document.getElementById('download');
         downloadElem.value = this._getDownloadText(document.getElementById('hexDumpInfo'));
+    },
+
+    commit: function () {
+        var commands = [];
+        var tr = document.getElementsByTagName('tr');
+        var len = tr.length;
+        for (var i = 0; i < len; i++) {
+            if (tr[i].className !== 'commit') {
+                continue;
+            }
+            commands.push({
+                'localAddress': tr[i].children[1].textContent,
+                'remoteAddress': tr[i].children[2].textContent,
+                'protocol': tr[i].children[3].textContent,
+                'info': tr[i].children[4].textContent
+            });
+        }
+        var downloadElem = document.getElementById('commit');
+        downloadElem.value = commands;
     },
 
     _getDownloadText: function(elem) {

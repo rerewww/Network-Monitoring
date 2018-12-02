@@ -52,7 +52,8 @@
       <ul class="nav navbar-nav navbar-right">
         <li class="active"><a href="/network">Dashboard</a></li>
         <li><a href="/network/viewDevices">Devices</a></li>
-        <li><a href="#">Profile</a></li>
+        <li><a href="/network/analytics">Analytics</a></li>
+        <li><a href="/network/setting">Setting</a></li>
         <li><a href="/logout">Logout</a></li>
       </ul>
     </div>
@@ -110,7 +111,12 @@
         </div>
         <div class="col-xs-6 col-sm-3 placeholder" style="width:17%;">
           <form action="/network/download" method="post">
-            <button id="download" name="contents" onclick="packets.download()">Download</button>
+            <button class="action" id="download" name="contents" onclick="packets.download()">Download</button>
+          </form>
+        </div>
+        <div class="col-xs-6 col-sm-3 placeholder" style="width:17%;">
+          <form action="/network/commit" method="post">
+            <button class="action" id="commit" name="contents" onclick="packets.commit()">Commit</button>
           </form>
         </div>
       </div>
